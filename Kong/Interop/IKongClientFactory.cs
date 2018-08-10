@@ -1,4 +1,4 @@
-﻿namespace Kong
+﻿namespace Kong.Interop
 {
     public interface IKongClientFactory
     {

@@ -2,7 +2,7 @@
 using Kong.Model;
 using Kong.Slumber;
 
-namespace Kong
+namespace Kong.Interop
 {
     /// <summary>
     /// Entry point to the kong server.
@@ -32,6 +32,16 @@ namespace Kong
         /// The API object describes an API that's being exposed by Kong. Kong needs to know how to retrieve the API when a consumer is calling it from the Proxy port. Each API object must specify a request host, a request path or both. Kong will proxy all requests to the API to the specified upstream URL.
         /// </summary>
         IApis Apis { get; }
+
+        /// <summary>
+        /// The Service object describes a service that's being exposed by Kong. Kong needs to know how to retrieve the Service when a consumer is calling it from the Proxy port. Each Service object must specify a request host, a request path or both. Kong will proxy all requests to the Service to the specified upstream URL.
+        /// </summary>
+        IServices Services { get; }
+
+        /// <summary>
+        /// The Service object describes a service that's being exposed by Kong. Kong needs to know how to retrieve the Service when a consumer is calling it from the Proxy port. Each Service object must specify a request host, a request path or both. Kong will proxy all requests to the Service to the specified upstream URL.
+        /// </summary>
+        IRoutes Routes { get; }
 
         /// <summary>
         /// The Consumer object represents a consumer - or a user - of an API. You can either rely on Kong as the primary datastore, or you can map the consumer list with your database to keep consistency between Kong and your existing primary datastore.

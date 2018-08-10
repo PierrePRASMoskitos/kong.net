@@ -1,16 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using Kong.Interop;
 using Kong.Slumber;
 
 namespace Kong.Model
 {
     public class Apis : IApis
     {
-        private readonly IRequestFactory _requestFactory;
+        private readonly IRequestFactory requestFactory_;
 
         public Apis(IRequestFactory requestFactory)
         {
-            _requestFactory = requestFactory;
+            requestFactory_ = requestFactory;
         }
 
         public async Task<ResourceCollection<IApi>> List(string id = null, 
@@ -31,21 +32,21 @@ namespace Kong.Model
                 {"size", size},
                 {"offset", offset}
             };
-            var response = await _requestFactory.List<ResourceCollection<Api>>(parameters).ConfigureAwait(false);
+            var response = await requestFactory_.List<ResourceCollection<Api>>(parameters).ConfigureAwait(false);
             return MapToInterface(response);
         }
 
         public async Task<IApi> Create(ApiData data)
         {
-            var response = await _requestFactory.Post<Api>(data).ConfigureAwait(false);
-            var requestFactory = _requestFactory.Create("/{id}", new Dictionary<string, string> {{"id", response.Id}});
+            var response = await requestFactory_.Post<Api>(data).ConfigureAwait(false);
+            var requestFactory = requestFactory_.Create("/{id}", new Dictionary<string, string> {{"id", response.Id}});
             response.Configure(requestFactory);
             return response;
         }
 
         public async Task<IApi> Get(string id)
         {
-            var requestFactory = _requestFactory.Create("/{id}", new Dictionary<string, string> { { "id", id } });
+            var requestFactory = requestFactory_.Create("/{id}", new Dictionary<string, string> { { "id", id } });
             var response = await requestFactory.Get<Api>().ConfigureAwait(false);
             response.Configure(requestFactory);
             return response;
@@ -63,7 +64,7 @@ namespace Kong.Model
 
         private Api Configure(Api api)
         {
-            var requestFactory = _requestFactory.Create("/{id}", new Dictionary<string, string> { { "id", api.Id } });
+            var requestFactory = requestFactory_.Create("/{id}", new Dictionary<string, string> { { "id", api.Id } });
             api.Configure(requestFactory);
             return api;
         }

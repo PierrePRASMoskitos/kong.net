@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kong
+namespace Kong.Interop
 {
     public interface IConsumer
     {

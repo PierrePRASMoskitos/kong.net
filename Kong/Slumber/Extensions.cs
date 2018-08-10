@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Slumber;
 using Slumber.Http;
 
 namespace Kong.Slumber

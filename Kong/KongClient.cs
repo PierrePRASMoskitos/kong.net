@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kong.Interop;
 using Kong.Model;
 using Kong.Slumber;
 
@@ -6,39 +7,43 @@ namespace Kong
 {
     public class KongClient : IKongClient
     {
-        private readonly IRequestFactory _requestFactory;
+        private readonly IRequestFactory requestFactory_;
 
         internal KongClient(IRequestFactory requestfactory)
         {
-            _requestFactory = requestfactory;
+            requestFactory_ = requestfactory;
         }
 
         public async Task<Node> Node()
         {
-            var requestFactory = _requestFactory.Create("/");
+            var requestFactory = requestFactory_.Create("/");
             var response = await requestFactory.Get<Node>().ConfigureAwait(false);
             return response;
         }
 
         public async Task<Status> Status()
         {
-            var requestFactory = _requestFactory.Create("/status");
+            var requestFactory = requestFactory_.Create("/status");
             var response = await requestFactory.Get<Status>().ConfigureAwait(false);
             return response;
         }
 
         public async Task<ICluster> Cluster()
         {
-            var requestFactory = _requestFactory.Create("/cluster");
+            var requestFactory = requestFactory_.Create("/cluster");
             var response = await requestFactory.Get<Cluster>().ConfigureAwait(false);
             response.Configure(requestFactory);
             return response;
         }
 
-        public IApis Apis => new Apis(_requestFactory.Create("/apis"));
+        public IRequestFactory RequestFactory => requestFactory_;
 
-        public IConsumers Consumers => new Consumers(_requestFactory.Create("/consumers"));
+        public IApis Apis => new Apis(requestFactory_.Create("/apis"));
 
-        public IRequestFactory RequestFactory => _requestFactory;
+        public IConsumers Consumers => new Consumers(requestFactory_.Create("/consumers"));
+        
+        public IServices Services => new Services(requestFactory_.Create("/services"));
+
+        public IRoutes Routes => new Routes(requestFactory_.Create("/routes"));
     }
 }

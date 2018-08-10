@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Kong.Interop;
 using Kong.Slumber;
 
 namespace Kong.Model

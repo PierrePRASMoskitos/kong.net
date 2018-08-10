@@ -1,10 +1,9 @@
 ﻿using System.Threading.Tasks;
 
-namespace Kong
+namespace Kong.Interop
 {
     public interface IApi
     {
-
         string Id { get; set; }
 
         string Name { get; set; }

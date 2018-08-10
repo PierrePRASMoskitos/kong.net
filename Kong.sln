@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2047
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kong", "Kong\Kong.csproj", "{22DA55A5-8CE9-4425-B877-2B4BB9CCEDB3}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Kong.Sample", "Kong.Sample\Kong.Sample.csproj", "{E9640191-6FD0-45D5-96BD-FA6DAF014F28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KongNetTests", "KongNetTests\KongNetTests.csproj", "{C07A8962-C83A-4A9E-91A1-1231431263F7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +23,15 @@ Global
 		{E9640191-6FD0-45D5-96BD-FA6DAF014F28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9640191-6FD0-45D5-96BD-FA6DAF014F28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9640191-6FD0-45D5-96BD-FA6DAF014F28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C07A8962-C83A-4A9E-91A1-1231431263F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C07A8962-C83A-4A9E-91A1-1231431263F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C07A8962-C83A-4A9E-91A1-1231431263F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C07A8962-C83A-4A9E-91A1-1231431263F7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5A5D3CBA-F4AC-4932-A577-8201CDE526D8}
 	EndGlobalSection
 EndGlobal

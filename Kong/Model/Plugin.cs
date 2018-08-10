@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using Kong.Exceptions;
+using Kong.Interop;
 using Kong.Serialization;
 using Kong.Slumber;
 using Newtonsoft.Json;

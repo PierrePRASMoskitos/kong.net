@@ -2,7 +2,7 @@
 using System.Threading.Tasks;
 using Kong.Model;
 
-namespace Kong
+namespace Kong.Interop
 {
     public interface ICluster
     {

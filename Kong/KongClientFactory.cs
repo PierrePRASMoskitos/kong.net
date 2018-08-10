@@ -1,4 +1,5 @@
 ﻿using System;
+using Kong.Interop;
 using Kong.Serialization;
 using Kong.Slumber;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace Kong
     {
         private readonly string _url;
         private readonly bool _debug;
-        private ISlumberConfiguration _configuration;
+        private ISlumberConfiguration configuration_;
 
         public KongClientFactory(string url, bool debug = true)
         {
@@ -23,7 +24,7 @@ namespace Kong
 
         public IKongClient Create()
         {
-            var client = new SlumberClient(SlumberConfigurationFactory.Empty(_url, TimeSpan.FromMinutes(1), Configure));
+            var client = new SlumberClient(SlumberConfigurationFactory.Empty(_url, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1), Configure));
             var requestFactory = new RequestFactory(client);
             return new KongClient(requestFactory);
         }
@@ -36,7 +37,7 @@ namespace Kong
                 return;
             }
             configuration.UseConsoleLogger();
-            _configuration = configuration;
+            configuration_ = configuration;
         }
 
         private void Customise(JsonSerializerSettings settings)
@@ -45,7 +46,7 @@ namespace Kong
             settings.NullValueHandling = NullValueHandling.Ignore;
         }
 
-        public ISlumberConfiguration Confguration => _configuration;
+        public ISlumberConfiguration Confguration => configuration_;
 
         private void Customise(Http http, ISlumberConfiguration configuration)
         {

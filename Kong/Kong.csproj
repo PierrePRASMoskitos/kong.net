@@ -30,13 +30,11 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=7.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.7.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Slumber, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Slumber.0.1.5\lib\net45\Slumber.dll</HintPath>
-      <Private>True</Private>
+      <HintPath>..\packages\Slumber.0.2.4\lib\net45\Slumber.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -48,6 +46,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interop\IEntityOperations.cs" />
+    <Compile Include="Interop\IRoute.cs" />
+    <Compile Include="Interop\IRoutes.cs" />
+    <Compile Include="Interop\IService.cs" />
+    <Compile Include="Interop\IServices.cs" />
     <Compile Include="Model\AclPluginGroup.cs" />
     <Compile Include="Model\AclPluginGroups.cs" />
     <Compile Include="Model\Apis.cs" />
@@ -69,6 +72,10 @@
     <Compile Include="Model\Oauth2Application.cs" />
     <Compile Include="Model\Oauth2Applications.cs" />
     <Compile Include="Model\Oauth2Plugin.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\Services.cs" />
+    <Compile Include="Model\Route.cs" />
+    <Compile Include="Model\Routes.cs" />
     <Compile Include="Slumber\Extensions.cs" />
     <Compile Include="Slumber\IRequestFactory.cs" />
     <Compile Include="Serialization\PluginAttribute.cs" />
@@ -77,15 +84,15 @@
     <Compile Include="Exceptions\PluginNotSupportedException.cs" />
     <Compile Include="Serialization\PluginTypeHelper.cs" />
     <Compile Include="Slumber\RequestFactory.cs" />
-    <Compile Include="IApi.cs" />
-    <Compile Include="IApis.cs" />
-    <Compile Include="IKongClient.cs" />
-    <Compile Include="ICluster.cs" />
-    <Compile Include="IKongClientFactory.cs" />
-    <Compile Include="IConsumer.cs" />
-    <Compile Include="IConsumers.cs" />
-    <Compile Include="IPlugin.cs" />
-    <Compile Include="IPlugins.cs" />
+    <Compile Include="Interop\IApi.cs" />
+    <Compile Include="Interop\IApis.cs" />
+    <Compile Include="Interop\IKongClient.cs" />
+    <Compile Include="Interop\ICluster.cs" />
+    <Compile Include="Interop\IKongClientFactory.cs" />
+    <Compile Include="Interop\IConsumer.cs" />
+    <Compile Include="Interop\IConsumers.cs" />
+    <Compile Include="Interop\IPlugin.cs" />
+    <Compile Include="Interop\IPlugins.cs" />
     <Compile Include="Model\ApiData.cs" />
     <Compile Include="Model\Cluster.cs" />
     <Compile Include="Model\ClusterNode.cs" />
@@ -120,6 +127,7 @@
     <Compile Include="Serialization\SnakeCaseContractResolver.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="Kong.nuspec">
       <SubType>Designer</SubType>
     </None>

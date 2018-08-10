@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kong.Exceptions;
 using Slumber;
-using Slumber.Http;
 
 namespace Kong.Slumber
 {
@@ -15,7 +15,7 @@ namespace Kong.Slumber
         public RequestFactory(ISlumberClient client)
             : this(null, client, string.Empty, new Dictionary<string, string>())
         {
-            
+
         }
 
         public RequestFactory(IRequestFactory parent, ISlumberClient client, string baseUrl, IDictionary<string, string> parameters)
@@ -105,7 +105,7 @@ namespace Kong.Slumber
                 .Build();
             return Execute(request);
         }
-        
+
         public IRequestFactory Create(string url)
         {
             return Create(url, new Dictionary<string, string>());
@@ -153,7 +153,7 @@ namespace Kong.Slumber
             }
             return parameters;
         }
-        
+
         private T GetContent<T>(IResponse<T> response)
         {
             return string.IsNullOrEmpty(response.Content) ? default(T) : response.Data;
@@ -176,4 +176,4 @@ namespace Kong.Slumber
             throw new ApiException(response.StatusCode, content, response.Exception);
         }
     }
-} 
+}
