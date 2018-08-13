@@ -1,4 +1,5 @@
 ﻿using System.Text.RegularExpressions;
+using Kong.Interop;
 using Kong.Serialization;
 
 namespace Kong.Model

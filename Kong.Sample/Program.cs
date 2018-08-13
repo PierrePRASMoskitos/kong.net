@@ -1,5 +1,6 @@
 ﻿using System;
 using Kong.Exceptions;
+using Kong.Factory;
 using Kong.Model;
 
 namespace Kong.Sample

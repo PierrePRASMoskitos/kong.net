@@ -3,7 +3,7 @@ using Kong.Interop;
 using Kong.Model;
 using Kong.Slumber;
 
-namespace Kong
+namespace Kong.Client
 {
     public class KongClient : IKongClient
     {
@@ -39,11 +39,11 @@ namespace Kong
         public IRequestFactory RequestFactory => requestFactory_;
 
         public IApis Apis => new Apis(requestFactory_.Create("/apis"));
-
+        
         public IConsumers Consumers => new Consumers(requestFactory_.Create("/consumers"));
         
-        public IServices Services => new Services(requestFactory_.Create("/services"));
+        public IKongEntity Route => new Route(requestFactory_.Create("/routes"));
 
-        public IRoutes Routes => new Routes(requestFactory_.Create("/routes"));
+        public IKongEntity Service => new Service(requestFactory_.Create("/services"));
     }
 }

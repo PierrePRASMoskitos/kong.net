@@ -36,18 +36,21 @@ namespace Kong.Interop
         /// <summary>
         /// The Service object describes a service that's being exposed by Kong. Kong needs to know how to retrieve the Service when a consumer is calling it from the Proxy port. Each Service object must specify a request host, a request path or both. Kong will proxy all requests to the Service to the specified upstream URL.
         /// </summary>
-        IServices Services { get; }
+        IKongEntity Service { get; }
 
         /// <summary>
         /// The Service object describes a service that's being exposed by Kong. Kong needs to know how to retrieve the Service when a consumer is calling it from the Proxy port. Each Service object must specify a request host, a request path or both. Kong will proxy all requests to the Service to the specified upstream URL.
         /// </summary>
-        IRoutes Routes { get; }
+        IKongEntity Route { get; }
 
         /// <summary>
         /// The Consumer object represents a consumer - or a user - of an API. You can either rely on Kong as the primary datastore, or you can map the consumer list with your database to keep consistency between Kong and your existing primary datastore.
         /// </summary>
         IConsumers Consumers { get; }
 
+        /// <summary>
+        /// The request factory.
+        /// </summary>
         IRequestFactory RequestFactory { get; }
     }
 }

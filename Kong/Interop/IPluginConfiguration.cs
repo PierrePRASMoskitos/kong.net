@@ -1,6 +1,6 @@
 ﻿using Kong.Slumber;
 
-namespace Kong.Model
+namespace Kong.Interop
 {
     public interface IPluginConfiguration
     {

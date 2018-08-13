@@ -46,16 +46,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Interop\IEntityOperations.cs" />
-    <Compile Include="Interop\IRoute.cs" />
-    <Compile Include="Interop\IRoutes.cs" />
-    <Compile Include="Interop\IService.cs" />
-    <Compile Include="Interop\IServices.cs" />
+    <Compile Include="Interop\IEntityFactory.cs" />
+    <Compile Include="Interop\IKongEntity.cs" />
+    <Compile Include="Model\Route.cs" />
+    <Compile Include="Model\Service.cs" />
+    <Compile Include="Model\ServiceData.cs" />
+    <Compile Include="Model\KongEntity.cs" />
+    <Compile Include="Model\RouteData.cs" />
+    <Compile Include="Model\ServiceInformation.cs" />
     <Compile Include="Model\AclPluginGroup.cs" />
     <Compile Include="Model\AclPluginGroups.cs" />
     <Compile Include="Model\Apis.cs" />
-    <Compile Include="KongClient.cs" />
-    <Compile Include="KongClientFactory.cs" />
+    <Compile Include="Client\KongClient.cs" />
+    <Compile Include="Factory\KongClientFactory.cs" />
     <Compile Include="Model\BasicAuthCredential.cs" />
     <Compile Include="Model\BasicAuthCredentials.cs" />
     <Compile Include="Model\BotDetectionPlugin.cs" />
@@ -72,10 +75,6 @@
     <Compile Include="Model\Oauth2Application.cs" />
     <Compile Include="Model\Oauth2Applications.cs" />
     <Compile Include="Model\Oauth2Plugin.cs" />
-    <Compile Include="Model\Service.cs" />
-    <Compile Include="Model\Services.cs" />
-    <Compile Include="Model\Route.cs" />
-    <Compile Include="Model\Routes.cs" />
     <Compile Include="Slumber\Extensions.cs" />
     <Compile Include="Slumber\IRequestFactory.cs" />
     <Compile Include="Serialization\PluginAttribute.cs" />
@@ -101,7 +100,7 @@
     <Compile Include="Model\Node.cs" />
     <Compile Include="Model\PluginStatus.cs" />
     <Compile Include="Model\Plugin.cs" />
-    <Compile Include="Model\IPluginConfiguration.cs" />
+    <Compile Include="Interop\IPluginConfiguration.cs" />
     <Compile Include="Model\PluginConfiguration.cs" />
     <Compile Include="Model\PluginData.cs" />
     <Compile Include="Model\ResourceCollection.cs" />

@@ -1,4 +1,5 @@
 ﻿using System;
+using Kong.Client;
 using Kong.Interop;
 using Kong.Serialization;
 using Kong.Slumber;
@@ -8,23 +9,23 @@ using Slumber.Http;
 using Slumber.Json;
 using Slumber.Logging;
 
-namespace Kong
+namespace Kong.Factory
 {
     public class KongClientFactory : IKongClientFactory
     {
-        private readonly string _url;
-        private readonly bool _debug;
+        private readonly string url_;
+        private readonly bool debug_;
         private ISlumberConfiguration configuration_;
 
         public KongClientFactory(string url, bool debug = true)
         {
-            _url = url;
-            _debug = debug;
+            url_ = url;
+            debug_ = debug;
         }
 
         public IKongClient Create()
         {
-            var client = new SlumberClient(SlumberConfigurationFactory.Empty(_url, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1), Configure));
+            var client = new SlumberClient(SlumberConfigurationFactory.Empty(url_, TimeSpan.FromMinutes(1), TimeSpan.FromMinutes(1), Configure));
             var requestFactory = new RequestFactory(client);
             return new KongClient(requestFactory);
         }
@@ -32,7 +33,7 @@ namespace Kong
         private void Configure(ISlumberConfiguration configuration)
         {
             configuration.UseJsonSerialization(Customise).UseHttp(http => Customise(http, configuration));
-            if (!_debug)
+            if (!debug_)
             {
                 return;
             }

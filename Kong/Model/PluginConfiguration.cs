@@ -1,4 +1,5 @@
-﻿using Kong.Slumber;
+﻿using Kong.Interop;
+using Kong.Slumber;
 
 namespace Kong.Model
 {

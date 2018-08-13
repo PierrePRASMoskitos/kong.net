@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Kong.Exceptions;
 using Slumber;
@@ -8,9 +7,9 @@ namespace Kong.Slumber
 {
     internal sealed class RequestFactory : IRequestFactory
     {
-        private readonly string _baseUrl;
-        private readonly IDictionary<string, string> _parameters;
-        private readonly ISlumberClient _client;
+        private readonly string baseUrl_;
+        private readonly IDictionary<string, string> parameters_;
+        private readonly ISlumberClient client_;
 
         public RequestFactory(ISlumberClient client)
             : this(null, client, string.Empty, new Dictionary<string, string>())
@@ -21,16 +20,16 @@ namespace Kong.Slumber
         public RequestFactory(IRequestFactory parent, ISlumberClient client, string baseUrl, IDictionary<string, string> parameters)
         {
             Parent = parent;
-            _baseUrl = baseUrl;
-            _parameters = parameters;
-            _client = client;
+            baseUrl_ = baseUrl;
+            parameters_ = parameters;
+            client_ = client;
         }
 
         public async Task<T> List<T>(IDictionary<string, object> parameters)
         {
             var request = HttpRequestBuilder<T>
-                .Get(_baseUrl)
-                .QueryParameters(_parameters)
+                .Get(baseUrl_)
+                .QueryParameters(parameters_)
                 .QueryParameters(parameters, true)
                 .Build();
             var response = await Execute(request).ConfigureAwait(false);
@@ -39,7 +38,7 @@ namespace Kong.Slumber
 
         public async Task<T> Post<T>(object data, IDictionary<string, string> headers = null)
         {
-            var request = HttpRequestBuilder<T>.Post(_baseUrl).QueryParameters(_parameters).Content(data).Headers(headers).Build();
+            var request = HttpRequestBuilder<T>.Post(baseUrl_).QueryParameters(parameters_).Content(data).Headers(headers).Build();
             var response = await Execute(request).ConfigureAwait(false);
             return GetContent(response);
         }
@@ -47,8 +46,8 @@ namespace Kong.Slumber
         public async Task<T> Post<T>(IDictionary<string, string> headers = null)
         {
             var request = HttpRequestBuilder<T>
-                .Post(_baseUrl)
-                .QueryParameters(_parameters)
+                .Post(baseUrl_)
+                .QueryParameters(parameters_)
                 .Build();
             var response = await Execute(request).ConfigureAwait(false);
             return GetContent(response);
@@ -57,8 +56,8 @@ namespace Kong.Slumber
         public async Task<T> Get<T>(string id)
         {
             var request = HttpRequestBuilder<T>
-                .Get($"{_baseUrl}/{{id}}")
-                .QueryParameters(_parameters)
+                .Get($"{baseUrl_}/{{id}}")
+                .QueryParameters(parameters_)
                 .QueryParameter("id", id)
                 .Build();
             var response = await Execute(request).ConfigureAwait(false);
@@ -68,8 +67,8 @@ namespace Kong.Slumber
         public async Task<T> Get<T>()
         {
             var request = HttpRequestBuilder<T>
-                .Get($"{_baseUrl}")
-                .QueryParameters(_parameters)
+                .Get($"{baseUrl_}")
+                .QueryParameters(parameters_)
                 .Build();
             var response = await Execute(request).ConfigureAwait(false);
             return GetContent(response);
@@ -78,8 +77,8 @@ namespace Kong.Slumber
         public async Task<T> Put<T>(object data)
         {
             var request = HttpRequestBuilder<T>
-                .Put($"{_baseUrl}")
-                .QueryParameters(_parameters)
+                .Put($"{baseUrl_}")
+                .QueryParameters(parameters_)
                 .Content(data)
                 .Build();
             var response = await Execute(request).ConfigureAwait(false);
@@ -89,8 +88,8 @@ namespace Kong.Slumber
         public async Task<T> Patch<T>(object data)
         {
             var request = HttpRequestBuilder<T>
-                .Patch($"{_baseUrl}")
-                .QueryParameters(_parameters)
+                .Patch($"{baseUrl_}")
+                .QueryParameters(parameters_)
                 .Content(data)
                 .Build();
             var response = await Execute(request).ConfigureAwait(false);
@@ -100,8 +99,8 @@ namespace Kong.Slumber
         public Task Delete()
         {
             var request = HttpRequestBuilder<dynamic>
-                .Delete($"{_baseUrl}")
-                .QueryParameters(_parameters)
+                .Delete($"{baseUrl_}")
+                .QueryParameters(parameters_)
                 .Build();
             return Execute(request);
         }
@@ -113,12 +112,12 @@ namespace Kong.Slumber
 
         public IRequestFactory Create(IDictionary<string, string> parameters)
         {
-            return new RequestFactory(this, _client, _baseUrl, Merge(parameters));
+            return new RequestFactory(this, client_, baseUrl_, Merge(parameters));
         }
 
         public IRequestFactory Create(string url, IDictionary<string, string> parameters)
         {
-            return new RequestFactory(this, _client, Merge(url), Merge(parameters));
+            return new RequestFactory(this, client_, Merge(url), Merge(parameters));
         }
 
         public IRequestFactory Parent { get; }
@@ -138,12 +137,12 @@ namespace Kong.Slumber
 
         private string Merge(string url)
         {
-            return string.Join(url.StartsWith("/") ? string.Empty : "/", _baseUrl, url);
+            return string.Join(url.StartsWith("/") ? string.Empty : "/", baseUrl_, url);
         }
 
         private IDictionary<string, string> Merge(IDictionary<string, string> parameters)
         {
-            foreach (var parameter in _parameters)
+            foreach (var parameter in parameters_)
             {
                 if (parameters.ContainsKey(parameter.Key))
                 {
@@ -161,7 +160,7 @@ namespace Kong.Slumber
 
         private async Task<IResponse<T>> Execute<T>(IRequest<T> request)
         {
-            var response = await _client.ExecuteAsync(request).ConfigureAwait(false);
+            var response = await client_.ExecuteAsync(request).ConfigureAwait(false);
             HandleError(response);
             return response;
         }
@@ -172,7 +171,7 @@ namespace Kong.Slumber
             {
                 return;
             }
-            var content = response.Exception.GetContent<dynamic>(_client.Configuration.Serialization.CreateDeserializer(response));
+            var content = response.Exception.GetContent<dynamic>(client_.Configuration.Serialization.CreateDeserializer(response));
             throw new ApiException(response.StatusCode, content, response.Exception);
         }
     }
