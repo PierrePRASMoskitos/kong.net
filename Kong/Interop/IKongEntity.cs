@@ -8,7 +8,7 @@ namespace Kong.Interop
     {
         Task<ResourceCollection<T>> List<T>();
         Task<T> CreateAsync<T>(T data);
-        Task<T> UpdateAsync<T>(T data);
+        Task<T> UpdateAsync<T>(T data, string id);
         Task<T> GetEntityAsync<T>(string id);
         Task Delete<T>(string id);
 

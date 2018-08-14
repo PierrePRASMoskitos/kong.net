@@ -25,8 +25,9 @@ namespace Kong.Model
             return await RequestFactory.Post<T>(data).ConfigureAwait(false);
         }
 
-        public async Task<T> UpdateAsync<T>(T data)
+        public async Task<T> UpdateAsync<T>(T data, string id)
         {
+            Configure(RequestFactory, id);
             return await RequestFactory.Patch<T>(data).ConfigureAwait(false);
         }
 

@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using Kong.Factory;
-using Kong.Interop;
 using Kong.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -15,7 +14,7 @@ namespace Kong.UnitTests
             // Context
 
             var factory = new KongClientFactory("http://localhost:8001");
-            var client = factory.Create();                    
+            var client = factory.Create();
 
             var service = new ServiceData()
             {
@@ -24,15 +23,15 @@ namespace Kong.UnitTests
                 Path = "/v2",
                 Protocol = "http",
             };
-            
+
             // System under test
 
             var createdService = await client.Service.CreateAsync(service);
 
             var routeData = new RouteData()
             {
-                Hosts = new[] {"petstore.swagger.io"},
-                Paths = new []{"/petstore"},
+                Hosts = new[] { "petstore.swagger.io" },
+                Paths = new[] { "/petstore" },
                 ServiceInformation = new ServiceInformation()
                 {
                     ServiceId = createdService.Id,
@@ -46,6 +45,15 @@ namespace Kong.UnitTests
             var services = await client.Service.List<ServiceData>();
             var routes = await client.Route.List<RouteData>();
             var route = await client.Route.GetEntityAsync<RouteData>(createdRoute.Id);
+
+            createdRoute.Methods = new[] { "GET" };
+            createdService.Name = "PetStoreUpdated";
+
+            var updatedService = await client.Service.UpdateAsync(createdService);
+            var updatedRoute = await client.Route.UpdateAsync(createdRoute);
+
+            await client.Route.Delete<RouteData>(createdRoute.Id);
+            await client.Service.Delete<ServiceData>(createdService.Id);
 
             Assert.IsNotNull(services);
             Assert.IsNotNull(routes);
